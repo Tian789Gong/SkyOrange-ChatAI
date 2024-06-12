@@ -60,20 +60,15 @@ OpenAI GPT API 的调用，并将在后续持续扩充对各类模型及模型 A
 ```shell
 # 确认Python 的版本，应该是Pthon3.8~3.11
 python --version
-
 # 如果版本符合要求就可以直接跳到下一步：2、安装项目依赖；版本不符合要求进行以下步骤更新python版本
 # 创建python 3.11虚拟环境
 conda create -n env_name python=3.11
-
 # 激活conda环境
 conda activate env_name
-
 # 更新pip
 pip install --upgrade pip
-
 # 关闭环境
 conda deactivate
-
 # 删除环境
 conda env remove -n env_name
 ```
