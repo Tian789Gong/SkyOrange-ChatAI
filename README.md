@@ -144,13 +144,16 @@ git lfs ls-files
 # 返回上一级目录
 cd ..       
 # 从魔搭社区克隆bge-large-zh仓库
-git clone https://www.modelscope.cn/AI-ModelScope/bge-large-zh.git 
+git clone https://www.modelscope.cn/AI-ModelScope/bge-large-zh.git
+ 
 # 进入bge-large-zh目录
-cd bge-large-zh   
+cd bge-large-zh
+  
 # 拉取LFS文件
 git lfs pull   
 # 列出LFS对象
-ls -lh .git/lfs/objects     
+ls -lh .git/lfs/objects
+ 
 # 列出LFS文件检查文件的完整性，检查所有文件 都显示 *号就说明文件是完整的。
 # 如果没有*号就说明文件不完整，可以删除文件重新克隆模型仓库
 git lfs ls-files 
@@ -162,6 +165,7 @@ git lfs ls-files
 cd ~
 # 进入项目目录
 cd orange-Langchain
+
 # 复制配置示例
 python3 copy_config_example.py
 ```
@@ -170,18 +174,23 @@ python3 copy_config_example.py
 ```shell
 # 进入配置文件目录
 cd configs
-#用vi编辑器打开 model_config.py文件
+
+# 用vi编辑器打开 model_config.py文件
 vi model_config.py
 
 按下i键进入插入模式
 # 修改模型文件目录路径
 MODEL_ROOT_PATH = "/root/models"
+
 # 修改选用的 Embedding 名称
 EMBEDDING_MODEL = "bge-large-zh"
+
 # 修改MODEL_PATH = {}中的embed_model 模型路径
 "bge-large-zh": "/root/models/bge-large-zh"
+
 # 修改MODEL_PATH = {}中的llm_model 模型路径
 "chatglm3-6b": "/root/models/chatglm3-6b"
+
 # 按下esc键退出 插入模式，再输入以下保存并退出命令
 :wq
 ```
@@ -189,8 +198,10 @@ EMBEDDING_MODEL = "bge-large-zh"
 ```shell
 # 进入配置文件目录
 cd configs
+
 #用vi编辑器打开 server_config.py文件
 vi server_config.py
+
 按下i键进入插入模式
 # 在FSCHAT_MODEL_WORKERS = {} 中修改"default" 中的以下键值对
 # 使用的GPU ID，以str的格式指定，如"0,1" 有两块GPU就是填写"0,1"，有一块GPU就填写"0"
