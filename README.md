@@ -57,7 +57,7 @@ OpenAI GPT API 的调用，并将在后续持续扩充对各类模型及模型 A
 ### 一、安装项目依赖
 1、确认python版本
 
-```
+```shell
 # 确认Python 的版本，应该是Pthon3.8~3.11
 python --version
 
