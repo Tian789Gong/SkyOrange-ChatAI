@@ -119,24 +119,31 @@ pip install -r requirements_webui.txt
 cd ~
 # 创建专门放模型的目录
 mkdir -p models
+
 # 进入模型目录  
 cd models
 
 # 更新包列表
-sudo apt-get update     
+sudo apt-get update
+    
 # 安装Git LFS
-sudo apt-get install git-lfs 
+sudo apt-get install git-lfs
+
 # 初始化Git LFS
 git lfs install
 
 # 从魔搭社区克隆chatglm3-6b仓库
 git clone https://www.modelscope.cn/ZhipuAI/chatglm3-6b.git
+
 # 进入chatglm3-6b目录
-cd chatglm3-6b 
+cd chatglm3-6b
+
 # 拉取LFS文件
-git lfs pull    
+git lfs pull
+ 
 # 列出LFS对象
-ls -lh .git/lfs/objects  
+ls -lh .git/lfs/objects
+
 # 列出LFS文件检查文件的完整性，检查所有文件 都显示 *号就说明文件是完整的。
 # 如果没有*号就说明文件不完整，可以删除文件重新克隆模型仓库
 git lfs ls-files
@@ -150,7 +157,8 @@ git clone https://www.modelscope.cn/AI-ModelScope/bge-large-zh.git
 cd bge-large-zh
   
 # 拉取LFS文件
-git lfs pull   
+git lfs pull
+
 # 列出LFS对象
 ls -lh .git/lfs/objects
  
@@ -214,8 +222,10 @@ max_gpu_memory="16GiB"
 :wq
 # 返回根目录
 cd ~
+
 # 进入项目目录
 cd orange-Langchain
+
 # 重新创建数据库
 python3 init_database.py --recreate-vs
 
