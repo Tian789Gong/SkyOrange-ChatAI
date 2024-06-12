@@ -55,44 +55,107 @@ OpenAI GPT API 的调用，并将在后续持续扩充对各类模型及模型 A
 ## 快速上手
 
 ### 一、安装项目依赖
-1、确认python版本
+#### 1、确认python版本
 
 ```shell
 # 确认Python 的版本，应该是Pthon3.8~3.11
 python --version
+
 # 如果版本符合要求就可以直接跳到下一步：2、安装项目依赖；版本不符合要求进行以下步骤更新python版本
 # 创建python 3.11虚拟环境
 conda create -n env_name python=3.11
+
 # 激活conda环境
 conda activate env_name
+
 # 更新pip
 pip install --upgrade pip
+
 # 关闭环境
 conda deactivate
+
 # 删除环境
 conda env remove -n env_name
 ```
 
-接着，创建一个虚拟环境，并在虚拟环境内安装项目的依赖
-
+#### 2、安装项目依赖
+##### 2.1、安装NVIDIA驱动
 ```shell
+# 更新系统包索引
+sudo apt-get update
 
-# 拉取仓库
-$ git clone https://github.com/chatchat-space/orange-Langchain.git
+# 安装NVIDIA驱动
+sudo ubuntu-drivers autoinstall
 
-# 进入目录
-$ cd orange-Langchain
+# 重启系统，重启之后可能会让你重新连接服务器，这里正常连接服务器就可以。
+sudo reboot
 
-# 安装全部依赖
-$ pip install -r requirements.txt 
-$ pip install -r requirements_api.txt
-$ pip install -r requirements_webui.txt  
+# 重启成功之后，验证NVIDIA驱动是否正确安装并加载
+nvidia-smi 
 
-# 默认依赖包括基本运行环境（FAISS向量库）。如果要使用 milvus/pg_vector 等向量库，请将 requirements.txt 中相应依赖取消注释再安装。
+```
+##### 2.2、安装项目依赖文件里的依赖环境
+```shell
+# 拉取项目仓库
+git clone https://github.com/Tian789Gong/orange-Langchain.git
+
+# 进入项目目录
+cd orange-Langchain
+
+# 安装全部依赖，依此执行以下3个运行requirements.txt依赖文件的命令
+pip install -r requirements.txt
+
+# 阿里云部署如果出现报错：升级 setuptools 和 wheel 后再重新执行安装依赖的命令
+pip install setuptools_scm
+
+# 继续安装剩下的依赖
+pip install -r requirements_api.txt
+pip install -r requirements_webui.txt 
+```
+### 二、模型下载
+以LLM模型为：chatglm3-6b，Embedding模型为：bge-large-zh为例，从魔搭社区拉取模型
+```shell
+# 返回根目录
+cd ~
+# 创建专门放模型的目录
+mkdir -p models
+# 进入模型目录  
+cd models
+
+# 更新包列表
+sudo apt-get update     
+# 安装Git LFS
+sudo apt-get install git-lfs 
+# 初始化Git LFS
+git lfs install
+
+# 从魔搭社区克隆chatglm3-6b仓库
+git clone https://www.modelscope.cn/ZhipuAI/chatglm3-6b.git
+# 进入chatglm3-6b目录
+cd chatglm3-6b 
+# 拉取LFS文件
+git lfs pull    
+# 列出LFS对象
+ls -lh .git/lfs/objects  
+# 列出LFS文件检查文件的完整性，检查所有文件 都显示 *号就说明文件是完整的。
+# 如果没有*号就说明文件不完整，可以删除文件重新克隆模型仓库
+git lfs ls-files
+
+# 返回上一级目录
+cd ..       
+# 从魔搭社区克隆bge-large-zh仓库
+git clone https://www.modelscope.cn/AI-ModelScope/bge-large-zh.git 
+# 进入bge-large-zh目录
+cd bge-large-zh   
+# 拉取LFS文件
+git lfs pull   
+# 列出LFS对象
+ls -lh .git/lfs/objects     
+# 列出LFS文件检查文件的完整性，检查所有文件 都显示 *号就说明文件是完整的。
+# 如果没有*号就说明文件不完整，可以删除文件重新克隆模型仓库
+git lfs ls-files 
 ```
 
-请注意，orange-Langchain `0.2.x` 系列是针对 Langchain `0.0.x` 系列版本的，如果你使用的是 Langchain `0.1.x`
-系列版本，需要降级您的`Langchain`版本。
 
 ### 2. 模型下载
 
