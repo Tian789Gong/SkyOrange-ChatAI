@@ -155,43 +155,70 @@ ls -lh .git/lfs/objects
 # 如果没有*号就说明文件不完整，可以删除文件重新克隆模型仓库
 git lfs ls-files 
 ```
-
-
-### 2. 模型下载
-
-如需在本地或离线环境下运行本项目，需要首先将项目所需的模型下载至本地，通常开源 LLM 与 Embedding
-模型可以从 [HuggingFace](https://huggingface.co/models) 下载。
-
-以本项目中默认使用的 LLM 模型 [THUDM/ChatGLM3-6B](https://huggingface.co/THUDM/chatglm3-6b) 与 Embedding
-模型 [BAAI/bge-large-zh](https://huggingface.co/BAAI/bge-large-zh) 为例：
-
-下载模型需要先[安装 Git LFS](https://docs.github.com/zh/repositories/working-with-files/managing-large-files/installing-git-large-file-storage)
-，然后运行
-
-```Shell
-$ git lfs install
-$ git clone https://huggingface.co/THUDM/chatglm3-6b
-$ git clone https://huggingface.co/BAAI/bge-large-zh
-```
-
-### 3. 初始化知识库和配置文件
-
-按照下列方式初始化自己的知识库和简单的复制配置文件
-
+### 三、初始化知识库和配置文件
+#### 1、初始化知识库
 ```shell
-$ python copy_config_example.py
-$ python init_database.py --recreate-vs
- ```
+# 返回根目录
+cd ~
+# 进入项目目录
+cd orange-Langchain
+# 复制配置示例
+python3 copy_config_example.py
+```
+#### 2、配置文件
+##### 2.1配置模型文件
+```shell
+# 进入配置文件目录
+cd configs
+#用vi编辑器打开 model_config.py文件
+vi model_config.py
 
-### 4. 一键启动
+按下i键进入插入模式
+# 修改模型文件目录路径
+MODEL_ROOT_PATH = "/root/models"
+# 修改选用的 Embedding 名称
+EMBEDDING_MODEL = "bge-large-zh"
+# 修改MODEL_PATH = {}中的embed_model 模型路径
+"bge-large-zh": "/root/models/bge-large-zh"
+# 修改MODEL_PATH = {}中的llm_model 模型路径
+"chatglm3-6b": "/root/models/chatglm3-6b"
+# 按下esc键退出 插入模式，再输入以下保存并退出命令
+:wq
+```
+##### 2.2配置服务文件/重建数据库
+```shell
+# 进入配置文件目录
+cd configs
+#用vi编辑器打开 server_config.py文件
+vi server_config.py
+按下i键进入插入模式
+# 在FSCHAT_MODEL_WORKERS = {} 中修改"default" 中的以下键值对
+# 使用的GPU ID，以str的格式指定，如"0,1" 有两块GPU就是填写"0,1"，有一块GPU就填写"0"
+# 具体情况以你的服务器配置为准。以下以gpu数量为1，显存大小32G为例子
+gpus="0" 
+num_gpus= 1, 
+max_gpu_memory="16GiB"
+
+# 按下esc键退出 插入模式，再输入以下保存并退出命令
+:wq
+# 返回根目录
+cd ~
+# 进入项目目录
+cd orange-Langchain
+# 重新创建数据库
+python3 init_database.py --recreate-vs
+
+```
+### 四、一键启动
 
 按照以下命令启动项目
 
 ```shell
-$ python startup.py -a
+# 使用启动文件startup.py进行一键启动
+python3 startup.py -a
 ```
 
-### 5. 启动界面示例
+### 五. 启动界面示例
 
 如果正常启动，你将能看到以下界面
 
@@ -209,25 +236,6 @@ $ python startup.py -a
 
 ![](img/init_knowledge_base.jpg)
 
-### 注意
-
-以上方式只是为了快速上手，如果需要更多的功能和自定义启动方式
-，请参考[Wiki](https://github.com/chatchat-space/orange-Langchain/wiki/)
-
-
----
-
-## 项目里程碑
-
-+ `2023年4月`: `Langchain-ChatGLM 0.1.0` 发布，支持基于 ChatGLM-6B 模型的本地知识库问答。
-+ `2023年8月`: `Langchain-ChatGLM` 改名为 `orange-Langchain`，`0.2.0` 发布，使用 `fastchat` 作为模型加载方案，支持更多的模型和数据库。
-+ `2023年10月`: `orange-Langchain 0.2.5` 发布，推出 Agent 内容，开源项目在`Founder Park & Zhipu AI & Zilliz`
-  举办的黑客马拉松获得三等奖。
-+ `2023年12月`: `orange-Langchain` 开源项目获得超过 **20K** stars.
-+ `2024年1月`: `LangChain 0.1.x` 推出，`orange-Langchain 0.2.x` 发布稳定版本`0.2.10`
-  后将停止更新和技术支持，全力研发具有更强应用性的 `orange-Langchain 0.3.x`。
-
-+ 🔥 让我们一起期待未来 Chatchat 的故事 ···
 
 ---
 
