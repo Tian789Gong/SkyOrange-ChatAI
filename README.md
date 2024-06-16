@@ -271,8 +271,8 @@ python3 startup.py -a
 
 🎉 SkyOrange-ChatAI 项目微信交流群，如果你也对本项目感兴趣，欢迎加入群聊参与讨论交流。
 
-### 公众号
+### 交流QQ群
 
-<img src="img/official_wechat_mp_account.png" alt="二维码" width="300" />
+![](img/official_account_qr.png)
 
 🎉 SkyOrange-ChatAI 项目官方QQ，欢迎扫码进群。
