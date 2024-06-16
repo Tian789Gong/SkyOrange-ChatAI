@@ -273,6 +273,6 @@ python3 startup.py -a
 
 ### 公众号
 
-<img src="img/official_wechat_mp_account.jpg" alt="二维码" width="300" />
+<img src="img/official_wechat_mp_account.png" alt="二维码" width="300" />
 
 🎉 SkyOrange-ChatAI 项目官方QQ，欢迎扫码进群。
