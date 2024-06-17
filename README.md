@@ -3,7 +3,7 @@
 🌍 [READ THIS IN ENGLISH](README_en.md)
 🌍 [日本語で読む](README_ja.md)
 
-📃 **SkyOrange-ChatAI** (原 Langchain-ChatGLM)
+📃 **SkyOrange-ChatAI** 
 
 基于 ChatGLM 等大语言模型与 Langchain 等应用框架实现，开源、可离线部署的检索增强生成(RAG)大模型知识库项目。
 
@@ -262,17 +262,10 @@ python3 startup.py -a
 
 ## 联系我们
 
-### Telegram
-
-[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white "langchain-chatglm")](https://t.me/+RjliQ3jnJ1YyN2E9)
-
-### 项目交流群
-<img src="img/qr_code_107.jpg" alt="二维码" width="300" />
-
-🎉 SkyOrange-ChatAI 项目微信交流群，如果你也对本项目感兴趣，欢迎加入群聊参与讨论交流。
+🎉 SkyOrange-ChatAI 项目交流QQ群，如果你也对本项目感兴趣，欢迎加入群聊参与讨论交流。
 
 ### 交流QQ群
 
 ![](img/official_account_qr.png)
 
-🎉 SkyOrange-ChatAI 项目官方QQ，欢迎扫码进群。
+🎉 SkyOrange-ChatAI 项目官方QQ群，欢迎扫码进群。
