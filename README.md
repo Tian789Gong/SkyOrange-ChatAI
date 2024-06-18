@@ -1,4 +1,4 @@
-![](img/logo-long-chatchat-trans-v2.jpg)
+![](img/logo-long-chatchat-trans-v2.png)
 
 🌍 [READ THIS IN ENGLISH](README_en.md)
 🌍 [日本語で読む](README_ja.md)
@@ -34,11 +34,11 @@ OpenAI GPT API 的调用，并将在后续持续扩充对各类模型及模型 A
 ⛓️ 本项目实现原理如下图所示，过程包括加载文件 -> 读取文本 -> 文本分割 -> 文本向量化 -> 问句向量化 ->
 在文本向量中匹配出与问句向量最相似的 `top k`个 -> 匹配出的文本作为上下文和问题一起添加到 `prompt`中 -> 提交给 `LLM`生成回答。
 
-![实现原理图](img/langchain+chatglm.jpg)
+![实现原理图](img/langchain+chatglm.png)
 
 从文档处理角度来看，实现流程如下：
 
-![实现原理图2](img/langchain+chatglm2.jpg)
+![实现原理图2](img/langchain+chatglm2.png)
 
 🚩 本项目未涉及微调、训练过程，但可利用微调或训练对本项目效果进行优化。
 
