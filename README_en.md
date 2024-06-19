@@ -1,165 +1,235 @@
+
 ![](img/logo-long-chatchat-trans-v2.png)
 
-🌍 [中文文档](README.md)
-🌍 [日本語で読む](README_ja.md)
+🌍 [READ THIS IN ENGLISH](README_en.md)
 
-📃 **SkyOrange-ChatAI** (formerly Langchain-ChatGLM):
+📃 **SkyOrange-ChatAI** 
 
-A LLM application aims to implement knowledge and search engine based QA based on Langchain and open-source or remote
-LLM API.
-
-⚠️`0.2.10` will be the last version of the `0.2.x` series. The `0.2.x` series will stop updating and technical support,
-and strive to develop `Langchain-Chachat 0.3.x` with stronger applicability.
-Subsequent bug fixes for `0.2.10` will be pushed directly to the `master` branch without version updates.
-
+An open-source, offline deployable Retrieval-Augmented Generation (RAG) large model knowledge base project based on large language models like ChatGLM and application frameworks like Langchain.
 
 ---
 
 ## Table of Contents
 
-- [Introduction](README.md#Introduction)
-- [Pain Points Addressed](README.md#Pain-Points-Addressed)
-- [Quick Start](README.md#Quick-Start)
-    - [1. Environment Setup](README.md#1-Environment-Setup)
-    - [2. Model Download](README.md#2-Model-Download)
-    - [3. Initialize Knowledge Base and Configuration Files](README.md#3-Initialize-Knowledge-Base-and-Configuration-Files)
-    - [4. One-Click Startup](README.md#4-One-Click-Startup)
-    - [5. Startup Interface Examples](README.md#5-Startup-Interface-Examples)
-- [Contact Us](README.md#Contact-Us)
+* [Introduction](README.md#项目介绍)
+* [Pain Points Solved](README.md#解决的痛点)
+* [Quick Start](README.md#快速上手)
+    * [1. Install Project Dependencies](README.md#一安装项目依赖)
+    * [2. Model Download](README.md#二模型下载)
+    * [3. Initialize Knowledge Base and Configuration Files](README.md#三初始化知识库和配置文件)
+    * [4. One-Click Start](README.md#四一键启动)
+    * [5. Start Interface Examples](README.md#五启动界面示例)
+* [Contact Us](README.md#联系我们)
 
 ## Introduction
 
-🤖️ A Q&A application based on local knowledge base implemented using the idea
-of [langchain](https://github.com/langchain-ai/langchain). The goal is to build a KBQA(Knowledge based Q&A) solution
-that
-is friendly to Chinese scenarios and open source models and can run both offline and online.
+🤖️ A question-answering application based on local knowledge base using [langchain](https://github.com/Tian789Gong/SkyOrange-ChatAI.git), aimed at establishing a knowledge base QA solution that is friendly to Chinese scenarios and open-source models, and can run offline.
 
-💡 Inspired by [document.ai](https://github.com/GanymedeNil/document.ai)
-and [ChatGLM-6B Pull Request](https://github.com/THUDM/ChatGLM-6B/pull/216) , we build a local knowledge base question
-answering application that can be implemented using an open source model or remote LLM api throughout the process. In
-the latest version of this project, [FastChat](https://github.com/lm-sys/FastChat) is used to access Vicuna, Alpaca,
-LLaMA, Koala, RWKV and many other models. Relying on [langchain](https://github.com/langchain-ai/langchain) , this
-project supports calling services through the API provided based on [FastAPI](https://github.com/tiangolo/fastapi), or
-using the WebUI based on [Streamlit](https://github.com/streamlit/streamlit).
+✅ Based on the open-source LLM and Embedding models supported by this project, it can achieve **offline private deployment** using all **open-source** models. Meanwhile, this project also supports OpenAI GPT API calls and will continue to expand the access to various models and model APIs.
 
-✅ Relying on the open source LLM and Embedding models, this project can realize full-process **offline private
-deployment**. At the same time, this project also supports the call of OpenAI GPT API- and Zhipu API, and will continue
-to expand the access to various models and remote APIs in the future.
+⛓️ The implementation principle of this project is shown in the figure below, which includes loading files -> reading text -> text segmentation -> text vectorization -> question vectorization -> matching the most similar `top k` texts in the text vectors -> adding the matched texts as context to the `prompt` along with the question -> submitting to `LLM` to generate answers.
 
-⛓️ The implementation principle of this project is shown in the graph below. The main process includes: loading files ->
-reading text -> text segmentation -> text vectorization -> question vectorization -> matching the `top-k` most similar
-to the question vector in the text vector -> The matched text is added to `prompt `as context and question -> submitte
-to `LLM` to generate an answer.
+![Implementation Principle](img/langchain+chatglm.png)
 
-📺[video introduction](https://www.bilibili.com/video/BV13M4y1e7cN/?share_source=copy_web&vd_source=e6c5aafe684f30fbe41925d61ca6d514)
+From a document processing perspective, the implementation process is as follows:
 
-![实现原理图](img/langchain+chatglm.png)
+![Implementation Principle 2](img/langchain+chatglm2.png)
 
-The main process analysis from the aspect of document process:
+🚩 This project does not involve fine-tuning or training, but it can use fine-tuning or training to optimize the project effects.
 
-![实现原理图2](img/langchain+chatglm2.png)
+## Pain Points Solved
 
-🚩 The training or fine-tuning are not involved in the project, but still, one always can improve performance by do
-these.
+This project is a knowledge base enhancement solution that can achieve __fully localized__ inference, focusing on solving enterprise pain points of data security protection and private deployment. This open-source solution uses ```Apache License```, which allows free commercial use without any fees.
 
-🌐 [AutoDL image](https://www.codewithgpu.com/i/chatchat-space/SkyOrange-ChatAI/SkyOrange-ChatAI) is supported, and in `0.2.10` the codes are update to v0.2.10.
-
-🐳 [Docker image](isafetech/chatchat:0.2.10) is supported to ```0.2.10```.
-
-🌲 The latest update also provides support for image sources from DockerHub, Ali Cloud, and Tencent Cloud:
-
-```shell
-docker run -d --gpus all -p 80:8501 isafetech/chatchat:0.2.10
-docker run -d --gpus all -p 80:8501 uswccr.ccs.tencentyun.com/chatchat/chatchat:0.2.10
-docker run -d --gpus all -p 80:8501 registry.cn-beijing.aliyuncs.com/chatchat/chatchat:0.2.10
-```
-
-## Pain Points Addressed
-
-This project is a solution for enhancing knowledge bases with fully localized inference, specifically addressing the
-pain points of data security and private deployments for businesses.
-This open-source solution is under the Apache License and can be used for commercial purposes for free, with no fees
-required.
-We support mainstream local large prophecy models and Embedding models available in the market, as well as open-source
-local vector databases. For a detailed list of supported models and databases, please refer to
-our [Wiki](https://github.com/chatchat-space/SkyOrange-ChatAI/wiki/)
+We support mainstream local large language models and Embedding models, and also support open-source local vector databases.
 
 ## Quick Start
 
-### Environment Setup
-
-First, make sure your machine has Python 3.10 installed.
-
-```
-$ python --version
-Python 3.10.12
-```
-
-Then, create a virtual environment and install the project's dependencies within the virtual environment.
+### 1. Install Project Dependencies
+#### 1. Confirm Python Version
 
 ```shell
+# Confirm the Python version, it should be Python 3.8~3.11
+python3 --version
 
-# 拉取仓库
-$ git clone https://github.com/chatchat-space/SkyOrange-ChatAI.git
+# If the version meets the requirements, you can skip to the next step: 2. Install Project Dependencies; if not, follow the steps below to update the Python version
+# Create a Python 3.11 virtual environment
+conda create -n env_name python=3.11
 
-# 进入目录
-$ cd SkyOrange-ChatAI
+# Activate the conda environment
+conda activate env_name
 
-# 安装全部依赖
-$ pip install -r requirements.txt 
-$ pip install -r requirements_api.txt
-$ pip install -r requirements_webui.txt  
+# Upgrade pip
+pip install --upgrade pip
 
-# 默认依赖包括基本运行环境（FAISS向量库）。如果要使用 milvus/pg_vector 等向量库，请将 requirements.txt 中相应依赖取消注释再安装。
+# Deactivate the environment
+conda deactivate
+
+# Remove the environment
+conda env remove -n env_name
 ```
 
-Please note that the LangChain-Chachat `0.2.x` series is for the Langchain `0.0.x` series version. If you are using the
-Langchain `0.1.x` series version, you need to downgrade.
+#### 2. Install Project Dependencies
+##### 2.1. Install NVIDIA Drivers
+```shell
+# Update system package index
+sudo apt-get update
 
-### Model Download
+# Install NVIDIA drivers
+sudo ubuntu-drivers autoinstall
 
-If you need to run this project locally or in an offline environment, you must first download the required models for
-the project. Typically, open-source LLM and Embedding models can be downloaded from HuggingFace.
+# Restart the system, you might need to reconnect to the server after restarting.
+sudo reboot
 
-Taking the default LLM model used in this project, [THUDM/chatglm2-6b](https://huggingface.co/THUDM/chatglm2-6b), and
-the Embedding model [moka-ai/m3e-base](https://huggingface.co/moka-ai/m3e-base) as examples:
-
-To download the models, you need to first
-install [Git LFS](https://docs.github.com/zh/repositories/working-with-files/managing-large-files/installing-git-large-file-storage)
-and then run:
-
-```Shell
-$ git lfs install
-$ git clone https://huggingface.co/THUDM/chatglm2-6b
-$ git clone https://huggingface.co/moka-ai/m3e-base
+# After a successful restart, verify if the NVIDIA driver is correctly installed and loaded
+nvidia-smi 
 ```
 
-### Initializing the Knowledge Base and Config File
+##### 2.2. Install Dependencies from the Project's Requirements File
+```shell
+# Clone the project repository
+git clone https://github.com/Tian789Gong/SkyOrange-ChatAI.git
 
-Follow the steps below to initialize your own knowledge base and config file:
+# Enter the project directory
+cd SkyOrange-ChatAI
+
+# Install all dependencies by running the following three commands to execute the requirements.txt file
+pip install -r requirements.txt
+pip install -r requirements-gpu.txt
+pip install -r requirements-doc.txt
+```
+
+### 2. Model Download
+#### 1. Clone the Required Model Repositories
+```shell
+# Create a directory to store the models
+mkdir -p /root/models
+
+# Enter the models directory
+cd /root/models
+
+# Clone the ChatGLM-3.6B model repository from Hugging Face
+git clone https://huggingface.co/THUDM/chatglm-6b-int4
+
+# Enter the ChatGLM-3.6B directory
+cd chatglm3-6b
+
+# Pull the LFS files
+git lfs pull
+
+# List LFS objects
+ls -lh .git/lfs/objects
+
+# List LFS files to check their integrity; if all files show a * it means they are complete. If not, delete the files and re-clone the repository
+git lfs ls-files
+
+# Return to the previous directory
+cd ..
+
+# Clone the bge-large-zh repository from ModelScope
+git clone https://www.modelscope.cn/AI-ModelScope/bge-large-zh.git
+
+# Enter the bge-large-zh directory
+cd bge-large-zh
+
+# Pull the LFS files
+git lfs pull
+
+# List LFS objects
+ls -lh .git/lfs/objects
+
+# List LFS files to check their integrity; if all files show a * it means they are complete. If not, delete the files and re-clone the repository
+git lfs ls-files 
+```
+
+### 3. Initialize Knowledge Base and Configuration Files
+#### 1. Initialize Knowledge Base
+```shell
+# Return to the root directory
+cd ~
+
+# Enter the project directory
+cd SkyOrange-ChatAI
+
+# Copy configuration example
+python3 copy_config_example.py
+```
+
+#### 2. Configure Files
+##### 2.1 Configure Model Files
+```shell
+# Enter the configuration files directory
+cd configs
+
+# Open the model_config.py file with vi editor
+vi model_config.py
+
+# Press the i key to enter insert mode
+# Modify the model file directory path
+MODEL_ROOT_PATH = "/root/models"
+
+# Modify the selected Embedding model name
+EMBEDDING_MODEL = "bge-large-zh"
+
+# Modify the embed_model path in MODEL_PATH = {}
+"bge-large-zh": "/root/models/bge-large-zh"
+
+# Modify the llm_model path in MODEL_PATH = {}
+"chatglm3-6b": "/root/models/chatglm3-6b"
+
+# Press the esc key to exit insert mode, then type the following to save and exit
+:wq
+```
+
+##### 2.2 Configure Service Files/Recreate Database
+```shell
+# Enter the configuration files directory
+cd configs
+
+# Open the server_config.py file with vi editor
+vi server_config.py
+
+# Press the i key to enter insert mode
+# Modify the following key-value pairs in FSCHAT_MODEL_WORKERS = {} under "default"
+# Specify the GPU ID to use, in str format like "0,1" for two GPUs or "0" for one GPU
+# This depends on your server configuration. Here is an example with 1 GPU and 32G memory
+gpus="0" 
+num_gpus= 1, 
+max_gpu_memory="16GiB"
+
+# Press the esc key to exit insert mode, then type the following to save and exit
+:wq
+
+# Return to the root directory
+cd ~
+
+# Enter the project directory
+cd SkyOrange-ChatAI
+
+# Recreate the database
+python3 init_database.py --recreate-vs
+```
+
+### 4. One-Click Start
+
+Start the project with the following command
 
 ```shell
-$ python copy_config_example.py
-$ python init_database.py --recreate-vs
- ```
-
-### One-Click Launch
-
-To start the project, run the following command:
-
-```shell
-$ python startup.py -a
+# Use the startup.py file for one-click start
+python3 startup.py -a
 ```
 
-### Example of Launch Interface
+### 5. Start Interface Examples
 
-1. FastAPI docs interface
+If started successfully, you will see the following interfaces
+
+1. FastAPI Docs interface
 
 ![](img/fastapi_docs_026.png)
 
-2. webui page
+2. Web UI start interface examples:
 
-- Web UI dialog page:
+- Web UI chat interface:
 
 ![img](img/LLM_success.png)
 
@@ -167,41 +237,15 @@ $ python startup.py -a
 
 ![](img/init_knowledge_base.jpg)
 
-### Note
-
-The above instructions are provided for a quick start. If you need more features or want to customize the launch method,
-please refer to the [Wiki](https://github.com/chatchat-space/SkyOrange-ChatAI/wiki/).
-
----
-
-## Project Milestones
-
-+ `April 2023`: `Langchain-ChatGLM 0.1.0` released, supporting local knowledge base question and answer based on the
-  ChatGLM-6B model.
-+ `August 2023`: `Langchain-ChatGLM` was renamed to `SkyOrange-ChatAI`, `0.2.0` was released, using `fastchat` as the
-  model loading solution, supporting more models and databases.
-+ `October 2023`: `Langchain-Chachat 0.2.5` was released, Agent content was launched, and the open source project won
-  the third prize in the hackathon held by `Founder Park & Zhipu AI & Zilliz`.
-+ `December 2023`: `Langchain-Chachat` open source project received more than **20K** stars.
-+ `January 2024`: `LangChain 0.1.x` is launched, `Langchain-Chachat 0.2.x` is released. After the stable
-  version `0.2.10` is released, updates and technical support will be stopped, and all efforts will be made to
-  develop `Langchain with stronger applicability -Chat 0.3.x`.
-
-
-+ 🔥 Let’s look forward to the future Chatchat stories together···
-
 ---
 
 ## Contact Us
 
-### Telegram
+🎉 SkyOrange-ChatAI project discussion QQ group, if you are interested in this project, welcome to join the group for discussions and exchanges.
 
-[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white "langchain-chatglm")](https://t.me/+RjliQ3jnJ1YyN2E9)
+### Discussion QQ Group
 
-### WeChat Group
+![](img/official_account_qr.png)
 
-<img src="img/qr_code_90.jpg" alt="二维码" width="300" height="300" />
+🎉 SkyOrange-ChatAI official QQ group, welcome to scan the code to join.
 
-### WeChat Official Account
-
-<img src="img/official_wechat_mp_account.png" alt="图片" width="900" height="300" />
