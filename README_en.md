@@ -1,7 +1,7 @@
 
 ![](img/logo-long-chatchat-trans-v2.png)
 
-🌍 [READ THIS IN ENGLISH](README_en.md)
+🌍 [中文文档](README.md)
 
 📃 **SkyOrange-ChatAI** 
 
